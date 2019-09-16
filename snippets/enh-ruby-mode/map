@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Map
+# uuid: map
+# key: map
+# condition: t
+# --
+
+map { |e| }

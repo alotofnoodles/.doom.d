@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: binding.pry
+# uuid: binding.pry
+# key: trigger-key
+# condition: t
+# --
+
+binding.pry
