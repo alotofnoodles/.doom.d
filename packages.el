@@ -8,3 +8,5 @@
 
 (package! emojify)
 (package! super-save)
+(package! evil-visual-replace)
+(package! evil-matchit)

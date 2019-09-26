@@ -18,4 +18,7 @@
  :en     "C-j"   #'evil-window-down
  :en     "C-k"   #'evil-window-up
  :en     "C-l"   #'evil-window-right)
+
+(evil-define-key 'visual evil-snipe-local-mode-map "z" 'evil-snipe-s)
+(evil-define-key 'visual evil-snipe-local-mode-map "Z" 'evil-snipe-S)
  ;;; private/boy/+bindings.el -*- lexical-binding: t; -*-
