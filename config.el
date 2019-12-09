@@ -10,8 +10,7 @@
 ;;       mac-command-modifier 'meta
 ;;       mac-option-modifier 'super)
 
-;; (add-hook 'after-init-hook 'inf-ruby-switch-setup)
-;; (add-hook 'after-init-hook #'global-company-mode)
+(add-hook 'after-init-hook 'inf-ruby-switch-setup)
 ;; (add-hook 'after-init-hook #'global-emojify-mode)
 
 (when IS-MAC
@@ -26,10 +25,13 @@
 ;; Always reload buffer
 (global-auto-revert-mode t)
 
+;; Activate evil-matchit
+(global-evil-matchit-mode 1)
+
 (load! "+bindings")
 
-;; (after! super-
-;;   (super-save-mode +1))
+(after! super-
+  (super-save-mode +1))
 
 (after! ruby-mode
   (setq ruby-insert-encoding-magic-comment nil))
@@ -48,7 +50,18 @@
 ;; Use Docker to run rspec if possible
 ;; (setq rspec-use-docker-when-possible t)
 ;; (setq rspec-docker-container "dev")
-
+(use-package! minitest
+  :defer t
+  :config
+  (when (featurep! :editor evil)
+    (add-hook 'minitest-mode-hook #'evil-normalize-keymaps))
+  (map! :localleader
+        :map minitest-mode-map
+        :prefix "t"
+        "r" #'minitest-rerun
+        "b" #'minitest-verify-all
+        "m" #'minitest-verify-single
+        "x" #'minitest-verify))
 (setq org-agenda-files '("~/org"))
 
 (server-start)
