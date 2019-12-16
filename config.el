@@ -1,41 +1,41 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here
+;; core
+(setq confirm-kill-emacs nil) ;; Disable exit prompt
+(setq tags-add-tables nil) ;; Disable prompt to keep current list of tags
+(setq-default doom-scratch-buffer-major-mode 'org-mode); Use org mode on scratch buffer
 
+;; ui
 (setq doom-font (font-spec :family "SF Mono" :size 16))
+(setq doom-theme 'doom-gruvbox)
 
-;; ;;; I prefer cmd key for meta
-;; (setq mac-option-key-is-meta nil
-;;       mac-command-key-is-meta t
-;;       mac-command-modifier 'meta
-;;       mac-option-modifier 'super)
-
-(add-hook 'after-init-hook 'inf-ruby-switch-setup)
-;; (add-hook 'after-init-hook #'global-emojify-mode)
-
+;; use full screen
 (when IS-MAC
   (setq ns-use-thin-smoothing t)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (run-with-idle-timer 0.01 nil 'toggle-frame-fullscreen))
 
-;; Disable prompt to keep current list of tags
-(setq tags-add-tables nil)
+;; hooks
+(add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(add-hook 'after-init-hook #'global-emojify-mode)
 
-;; Always reload buffer
-(global-auto-revert-mode t)
+;; settings
+(global-auto-revert-mode t) ;; Always reload buffer
+(global-evil-matchit-mode 1) ;; Activate evil-matchit
 
-;; Activate evil-matchit
-(global-evil-matchit-mode 1)
+(load! "+bindings") ;; Load custom bindings
 
-(load! "+bindings")
-
-(after! super-
+(after! super-save
   (super-save-mode +1))
 
-(after! ruby-mode
-  (setq ruby-insert-encoding-magic-comment nil))
+(after! enh-ruby-mode
+  (setq enh-ruby-add-encoding-comment-on-save nil))
 
+;; org
+(setq org-agenda-files '("~/org"))
+
+;; select inner word ala vim
 (defadvice evil-inner-word (around underscore-as-word activate)
   (let ((table (copy-syntax-table (syntax-table))))
     (modify-syntax-entry ?_ "w" table)
@@ -47,9 +47,11 @@
 ;;   (add-to-list 'forge-alist '("git.realestate.com.au" "git.realestate.com.au/api"
 ;;                               "git.realestate.com.au" forge-github-repository)))
 
-;; Use Docker to run rspec if possible
-;; (setq rspec-use-docker-when-possible t)
-;; (setq rspec-docker-container "dev")
+;; Rspec
+(setq rspec-use-docker-when-possible t)
+(setq rspec-docker-container "dev")
+
+;; Minitest
 (use-package! minitest
   :defer t
   :config
@@ -62,6 +64,5 @@
         "b" #'minitest-verify-all
         "m" #'minitest-verify-single
         "x" #'minitest-verify))
-(setq org-agenda-files '("~/org"))
 
 (server-start)
