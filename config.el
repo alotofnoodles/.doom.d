@@ -42,10 +42,10 @@
     (with-syntax-table table
       ad-do-it)))
 
-;; (def-package! forge
-;;   :config
-;;   (add-to-list 'forge-alist '("git.realestate.com.au" "git.realestate.com.au/api"
-;;                               "git.realestate.com.au" forge-github-repository)))
+(use-package! forge
+  :config
+  (add-to-list 'forge-alist '("git.realestate.com.au" "git.realestate.com.au/api"
+                              "git.realestate.com.au" forge-github-repository)))
 
 ;; Rspec
 (setq rspec-use-docker-when-possible t)
