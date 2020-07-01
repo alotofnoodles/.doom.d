@@ -2,15 +2,13 @@
 
 (map!
  :gnvime "s-s"   #'save-buffer
- :gnvime "s-/"   #'evil-commentary-line
  :gnvime "s-z"   #'undo-tree-undo
  :gnvime "s-Z"   #'undo-tree-redo
- :gnvime "s-}"   #'centaur-tabs-forward
- :gnvime "s-{"   #'centaur-tabs-backward
+ :gnvime "C-]"   #'dumb-jump-go
+ :gnvime "C-["   #'dumb-jump-back
 
  :v      "s"     #'evil-surround-region
  :v      "R"   #'evil-visual-replace-replace-regexp
- :n      "R"   #'query-replace-regexp
  :gnvime "s-F" #'counsel-projectile-rg
 
  :en     "s-l"   #'recenter
@@ -21,4 +19,3 @@
 
 (evil-define-key 'visual evil-snipe-local-mode-map "z" 'evil-snipe-s)
 (evil-define-key 'visual evil-snipe-local-mode-map "Z" 'evil-snipe-S)
- ;;; private/boy/+bindings.el -*- lexical-binding: t; -*-

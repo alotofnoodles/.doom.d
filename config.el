@@ -6,19 +6,19 @@
 (setq-default doom-scratch-buffer-major-mode 'org-mode); Use org mode on scratch buffer
 
 ;; ui
-(setq doom-font (font-spec :family "SF Mono" :size 16))
-(setq doom-theme 'doom-gruvbox)
+(setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 16))
+(setq doom-theme 'doom-tomorrow-night)
 
 ;; use full screen
 (when IS-MAC
   (setq ns-use-thin-smoothing t)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (run-with-idle-timer 0.01 nil 'toggle-frame-fullscreen))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark)))
+  ;; (run-with-idle-timer 0.01 nil 'toggle-frame-fullscreen))
 
 ;; hooks
-(add-hook 'after-init-hook 'inf-ruby-switch-setup)
-(add-hook 'after-init-hook #'global-emojify-mode)
+;; (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+;; (add-hook 'after-init-hook #'global-emojify-mode)
 
 ;; settings
 (global-auto-revert-mode t) ;; Always reload buffer
@@ -28,9 +28,6 @@
 
 (after! super-save
   (super-save-mode +1))
-
-(after! enh-ruby-mode
-  (setq enh-ruby-add-encoding-comment-on-save nil))
 
 ;; org
 (setq org-agenda-files '("~/org"))
@@ -44,25 +41,26 @@
 
 (use-package! forge
   :config
-  (add-to-list 'forge-alist '("git.realestate.com.au" "git.realestate.com.au/api"
+  (add-to-list 'forge-alist '("git.realestate.com.au" "git.realestate.com.au/api/v3"
                               "git.realestate.com.au" forge-github-repository)))
 
-;; Rspec
-(setq rspec-use-docker-when-possible t)
-(setq rspec-docker-container "dev")
-
-;; Minitest
-(use-package! minitest
-  :defer t
+(use-package zetteldeft
+  :ensure t
+  :after deft
   :config
-  (when (featurep! :editor evil)
-    (add-hook 'minitest-mode-hook #'evil-normalize-keymaps))
-  (map! :localleader
-        :map minitest-mode-map
-        :prefix "t"
-        "r" #'minitest-rerun
-        "b" #'minitest-verify-all
-        "m" #'minitest-verify-single
-        "x" #'minitest-verify))
+  (zetteldeft-set-classic-keybindings)
+  (setq deft-default-extension "md")
+  (setq deft-directory "/Users/will.djingga/Documents/Notes")
+  (setq deft-extensions '("md" "org" "txt"))
+  (setq zetteldeft-title-prefix "# ")
+  (setq zetteldeft-link-indicator "[[" zetteldeft-link-suffix "]]")
+  )
+;; (setq zetteldeft-link-indicator "[["
+;;       zetteldeft-link-suffix "]]")
+;; (setq zetteldeft-title-prefix "# ")
 
-(server-start)
+;; Rspec
+;; (setq rspec-use-docker-when-possible f)
+;; (setq rspec-docker-container "test")
+
+;; (server-start)

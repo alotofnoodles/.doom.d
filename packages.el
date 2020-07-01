@@ -10,3 +10,7 @@
 (package! super-save)
 (package! evil-visual-replace)
 (package! evil-matchit)
+(package! rg)
+(package! zetteldeft)
+;; (package! org-roam
+;;   :recipe (:host github :repo "jethrokuan/org-roam" :branch "develop"))
